@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noEmit": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+    // "esModuleInterop": true
+  },
+  "include": ["vite.config.ts", "server/**/*.js", "server/**/*.jsx", "server/og.jsx", "server/posts.js", "server/server.js"],
+}
