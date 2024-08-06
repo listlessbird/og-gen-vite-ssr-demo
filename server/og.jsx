@@ -65,71 +65,116 @@ export async function getOg({
 
   return svg;
 }
-
-export async function getBlogPostOg({ title, author, date }) {
+export async function getBlogPostOg({ title, author, date, content, imageUrl }) {
   const fontPath = path.join(process.cwd(), "server", "Montserrat-Regular.ttf");
   const fontPathBold = path.join(process.cwd(), "server", "Montserrat-Bold.ttf");
   const fontBufferNormal = await fs.readFile(fontPath);
-  const fontBufferBold = await fs.readFile(fontPathBold);
-
-  const svg = await satori(
- <div style={{
-      color: '#000',
-      backgroundColor: '#fff',
+  const fontBufferBold = await fs.readFile(fontPathBold); 
+  console.log(content.length)
+  const contentSnippet = content.length > 100 ? content.substring(0, 70) + '...' : content;
+  console.log(contentSnippet)
+ const svg = await satori(
+    <div style={{
+      width: '1200px',
+      height: '630px',
       display: 'flex',
-      padding: 32,
+      flexDirection: 'column',
+      backgroundColor: '#ffffff',
+      padding: '40px',
     }}>
+      {/* Header */}
       <div style={{
         display: 'flex',
-        flexDirection: 'column',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        width: '100%',
-        gap: 16,
-        padding: 30,
-        border: '14px solid #ff356f',
-        borderRadius: 30,
-        margin: 'auto'
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: '20px',
       }}>
+        <img 
+          src="https://avatar.iran.liara.run/public" 
+          style={{
+            width: '50px',
+            height: '50px',
+            borderRadius: '25px',
+            marginRight: '15px',
+          }} 
+        />
         <div style={{
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
         }}>
-          <img src="https://avatar.iran.liara.run/public" style={{
-            width: 64,
-            height: 64,
-            borderRadius: '50%',
-          }} />
-          <p style={{ fontSize: 24, fontWeight: 'semi-bold', color: '#000', marginLeft: 16 }}>
+          <p style={{ 
+            fontSize: '24px', 
+            fontWeight: 'bold', 
+            color: '#333', 
+            margin: '0'
+          }}>
             {author}
           </p>
+          <p style={{ 
+            fontSize: '16px', 
+            color: '#666', 
+            margin: '0'
+          }}>
+            {date}
+          </p>
         </div>
-        {/* <p style={{
-          fontSize: 64,
-          fontWeight: 'bold',
-          color: '#000',
-          marginBottom: 16,
-        }}>{title}</p> */}
-        <p style={{
-          fontSize: 32,
-          color: '#000',
-          fontWeight: 'bold',
-          maxWidth: '80%',
+      </div>
+
+      <h1 style={{
+        fontSize: '48px',
+        fontWeight: 'bold',
+        color: '#000',
+        marginBottom: '20px',
+        maxWidth: '90%',
+      }}>
+        {title}
+      </h1>
+
+      <p style={{
+        fontSize: '24px',
+        color: '#333',
+        marginBottom: '20px',
+        // maxWidth: '90%',
+      }}>
+        {contentSnippet}
+      </p>
+
+      {imageUrl && (
+        <img 
+          src={imageUrl} 
+          style={{
+            width: '100%',
+            height: '300px',
+            objectFit: 'cover',
+            borderRadius: '10px',
+          }} 
+        />
+      )}
+
+      <div style={{
+        marginTop: 'auto',
+        borderTop: '2px solid #eaeaea',
+        paddingTop: '20px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <p style={{ 
+          fontSize: '18px', 
+          color: '#666' 
         }}>
-          {title}
+          Read more on my blog
         </p>
-        <p style={{
-          fontSize: 32,
-          color: '#000',
-          textAlign: 'left',
-          maxWidth: '80%',
+        <p style={{ 
+          fontSize: '18px', 
+          fontWeight: 'bold', 
+          color: '#ff356f' 
         }}>
-          {date}
+          blog.listless.dev
         </p>
       </div>
-    </div>
-    
-   ,
+    </div>,
     {
       width: 1200,
       height: 630,
@@ -143,12 +188,12 @@ export async function getBlogPostOg({ title, author, date }) {
         {
           name: "Montserrat",
           data: fontBufferBold,
-          weight: 600,
+          weight: 700,
           style: "bold",
         }
       ],
     }
   );
-
+  
   return svg;
 }

@@ -93,6 +93,7 @@ app.get("/og-image/debug-post.png", async (req, res) => {
     title:
       "AI Dungeon 2: Creating Infinitely Generated Text Adventures with Deep Learning Language Models",
     author: "Some Autistic Retard",
+    content: "dwqascfwescddddddddddddddddddddwqsdswadqaswfesaqwfcdaqeswfqaeswfdqaeswrdqwrdqawdrqawfd",
     date: "2021-09-01",
   });
 
@@ -112,7 +113,9 @@ app.get("/og-image/post.png", async (req, res) => {
   const svg = await getBlogPostOg({
     title: post.title,
     author: post.author,
+    content: post.content,
     date: new Intl.DateTimeFormat("en-GB", {dateStyle: 'medium'}).format(new Date(post.date)),
+    imageUrl: 'http://localhost:5173/placeholder.jpg'
   });
 
   const img = await sharp(Buffer.from(svg)).png().toBuffer();
