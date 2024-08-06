@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-
-type Post = {
+import { Link } from "react-router-dom";
+export type Post = {
   id: string;
   title: string;
   description: string;
   content: string;
   date: Date;
+  author: string
 };
 
 export function PostRoot() {
@@ -16,7 +17,7 @@ export function PostRoot() {
   } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5173/posts/");
+      const res = await fetch("http://localhost:5173/api/posts/");
       return res.json();
     },
   });
@@ -40,7 +41,8 @@ export function PostRoot() {
           title={p.title}
           description={p.description}
           date={p.date}
-          key={p.title}
+          key={p.id}
+          id={p.id}
         />
       ))}
     </section>
@@ -51,24 +53,33 @@ function PostView({
   title,
   description,
   date,
+  id: postId,
 }: {
   title: string;
   description: string;
   date: Date;
+  id: string;
 }) {
   return (
     <div className="rounded-lg transition-all hover:bg-muted">
-      <a href="#" className="flex items-center gap-4 p-4">
-        <div className="flex-1">
-          <h2 className="text-xl font-bold hover:text-primary">{title}</h2>
-          <p className="mt-3 text-muted-foreground">{description}</p>
-          <div className="mt-3 text-sm text-muted-foreground">
-            {new Intl.DateTimeFormat("en-GB", {
-              dateStyle: "medium",
-            }).format(new Date(date))}
-          </div>
+      {/* <Link
+        to={"/posts"}
+        search={{
+          postId: postId,
+        }}
+        className="flex items-center gap-4 p-4"
+      > */}
+      <Link to={`/post?postId=${postId}`} className="flex items-center gap-4 p-4">
+      <div className="flex-1">
+        <h2 className="text-xl font-bold hover:text-primary">{title}</h2>
+        <p className="mt-3 text-muted-foreground">{description}</p>
+        <div className="mt-3 text-sm text-muted-foreground">
+          {new Intl.DateTimeFormat("en-GB", {
+            dateStyle: "medium",
+          }).format(new Date(date))}
         </div>
-      </a>
+      </div>
+      </Link>
     </div>
   );
 }

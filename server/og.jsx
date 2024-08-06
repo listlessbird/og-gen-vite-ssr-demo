@@ -4,58 +4,51 @@ import path from "path";
 import React from "react";
 
 export async function getOg({
-  title = "Welcome",
-  description = "This is my website",
+  title = "Welcome to my blog",
+  description = "A place where i share my thoughts",
 }) {
   const fontPath = path.join(process.cwd(), "server", "Montserrat-Regular.ttf");
   const fontBuffer = await fs.readFile(fontPath);
 
   const svg = await satori(
-    {
-      type: "div",
-      props: {
-        style: {
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#1e293b",
+       <div style={{
+      color: '#000',
+      backgroundColor: '#fff',
+      display: 'flex',
+      padding: 32,
+    }}>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        width: '100%',
+        gap: 16,
+        padding: 30,
+        border: '14px solid #ff356f',
+        borderRadius: 30,
+        margin: 'auto'
+      }}>
+     
+        <p style={{
           fontSize: 32,
-          fontWeight: 600,
-          color: "#ffffff",
-        },
-        children: [
-          {
-            type: "div",
-            props: {
-              style: {
-                display: "flex",
-                color: "#ffffff",
-                fontSize: 64,
-                fontWeight: "bold",
-                marginBottom: 16,
-              },
-              children: [title],
-            },
-          },
-          {
-            type: "div",
-            props: {
-              style: {
-                display: "flex",
-                color: "#94a3b8",
-                fontSize: 32,
-                textAlign: "center",
-                maxWidth: "80%",
-              },
-              children: [description],
-            },
-          },
-        ],
-      },
-    },
+          color: '#000',
+          fontWeight: 'bold',
+          maxWidth: '80%',
+          fontFamily: 'Montserrat',
+        }}>
+          {title}
+        </p>
+        <p style={{
+          fontSize: 32,
+          color: '#000',
+          textAlign: 'left',
+          maxWidth: '80%',
+        }}>
+          {description}
+        </p>
+      </div>
+    </div>, 
     {
       width: 1200,
       height: 630,
@@ -77,7 +70,7 @@ export async function getBlogPostOg({ title, author, date }) {
   const fontPath = path.join(process.cwd(), "server", "Montserrat-Regular.ttf");
   const fontPathBold = path.join(process.cwd(), "server", "Montserrat-Bold.ttf");
   const fontBufferNormal = await fs.readFile(fontPath);
-  const fontBufferBold = await fs.readFile(fontPath);
+  const fontBufferBold = await fs.readFile(fontPathBold);
 
   const svg = await satori(
  <div style={{

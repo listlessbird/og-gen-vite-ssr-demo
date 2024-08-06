@@ -2,6 +2,7 @@ const posts = [
   {
     id: "1",
     title: "The Rise of Artificial Intelligence",
+    title: "Listless",
     description: "Exploring the advancements and future potential of AI.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -10,6 +11,7 @@ const posts = [
   {
     id: "2",
     title: "Quantum Computing: A New Era",
+    title: "Listless",
     description: "Understanding the basics and potential of quantum computing.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -18,6 +20,7 @@ const posts = [
   {
     id: "3",
     title: "Blockchain Technology Explained",
+    title: "Listless",
     description: "A comprehensive guide to how blockchain technology works.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -26,6 +29,7 @@ const posts = [
   {
     id: "4",
     title: "The Internet of Things (IoT) Revolution",
+    title: "Listless",
     description: "How IoT is changing the way we interact with the world.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -34,6 +38,7 @@ const posts = [
   {
     id: "5",
     title: "5G Technology: What You Need to Know",
+    title: "Listless",
     description: "Exploring the features and benefits of 5G technology.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -42,6 +47,7 @@ const posts = [
   {
     id: "6",
     title: "Cybersecurity in the Modern World",
+    title: "Listless",
     description: "Strategies and tools for protecting your digital assets.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -50,6 +56,7 @@ const posts = [
   {
     id: "7",
     title: "Augmented Reality vs. Virtual Reality",
+    title: "Listless",
     description: "Comparing AR and VR technologies and their applications.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -58,6 +65,7 @@ const posts = [
   {
     id: "8",
     title: "The Future of Cloud Computing",
+    title: "Listless",
     description: "How cloud computing is evolving and its future implications.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -66,6 +74,7 @@ const posts = [
   {
     id: "9",
     title: "The Impact of 3D Printing",
+    title: "Listless",
     description: "Examining how 3D printing is revolutionizing manufacturing.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -74,6 +83,7 @@ const posts = [
   {
     id: "10",
     title: "Advancements in Robotics",
+    title: "Listless",
     description: "Current trends and future developments in robotics.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -82,6 +92,7 @@ const posts = [
   {
     id: "11",
     title: "The Role of Big Data in Business",
+    title: "Listless",
     description: "How businesses leverage big data for strategic decisions.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -90,6 +101,7 @@ const posts = [
   {
     id: "12",
     title: "Edge Computing Explained",
+    title: "Listless",
     description: "Understanding the concept and benefits of edge computing.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -98,6 +110,7 @@ const posts = [
   {
     id: "13",
     title: "The Evolution of User Interface Design",
+    title: "Listless",
     description: "Trends and innovations in UI design over the years.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -106,6 +119,7 @@ const posts = [
   {
     id: "14",
     title: "Tech Innovations in Healthcare",
+    title: "Listless",
     description: "How technology is transforming the healthcare industry.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -114,6 +128,7 @@ const posts = [
   {
     id: "15",
     title: "The Significance of Digital Transformation",
+    title: "Listless",
     description:
       "Why digital transformation is critical for modern businesses.",
       date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
@@ -123,6 +138,7 @@ const posts = [
   {
     id: "16",
     title: "Smart Cities: The Future of Urban Living",
+    title: "Listless",
     description: "Exploring the concept and benefits of smart cities.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -131,6 +147,7 @@ const posts = [
   {
     id: "17",
     title: "The Rise of Remote Work Technology",
+    title: "Listless",
     description: "How technology supports remote work and collaboration.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -139,6 +156,7 @@ const posts = [
   {
     id: "18",
     title: "Understanding DevOps Practices",
+    title: "Listless",
     description:
       "An overview of DevOps and its benefits for software development.",
       date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
@@ -148,6 +166,7 @@ const posts = [
   {
     id: "19",
     title: "The Role of Artificial Neural Networks",
+    title: "Listless",
     description: "How artificial neural networks mimic the human brain.",
     date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
     content:
@@ -156,6 +175,7 @@ const posts = [
   {
     id: "20",
     title: "Ethical Considerations in Technology",
+    title: "Listless",
     description:
       "Examining the ethical implications of technological advancements.",
       date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
