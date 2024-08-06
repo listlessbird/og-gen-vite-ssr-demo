@@ -12,5 +12,5 @@
     "jsx": "react-jsx",
     // "esModuleInterop": true
   },
-  "include": ["vite.config.ts", "server/**/*.js", "server/**/*.jsx", "server/og.jsx", "server/posts.js", "server/server.js"],
+  "include": ["vite.config.ts", "api/**/*.js", "api/**/*.jsx", "api/og.jsx", "api/posts.js", "api/server.js"],
 }

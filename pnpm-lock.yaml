@@ -38,6 +38,9 @@ importers:
       satori:
         specifier: ^0.10.14
         version: 0.10.14
+      serve-static:
+        specifier: ^1.15.0
+        version: 1.15.0
       sharp:
         specifier: ^0.33.4
         version: 0.33.4
