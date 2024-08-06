@@ -16,9 +16,7 @@ export function PostView() {
   } = useQuery<Post>({
     queryKey: ["posts", "postId", postId],
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5173/api/post?postId=${postId}`
-      );
+      const res = await fetch(`/api/post?postId=${postId}`);
       return res.json();
     },
   });

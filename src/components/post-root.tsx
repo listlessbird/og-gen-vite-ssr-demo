@@ -6,7 +6,7 @@ export type Post = {
   description: string;
   content: string;
   date: Date;
-  author: string
+  author: string;
 };
 
 export function PostRoot() {
@@ -17,7 +17,7 @@ export function PostRoot() {
   } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5173/api/posts/");
+      const res = await fetch("/api/posts/");
       return res.json();
     },
   });
@@ -69,16 +69,19 @@ function PostView({
         }}
         className="flex items-center gap-4 p-4"
       > */}
-      <Link to={`/post?postId=${postId}`} className="flex items-center gap-4 p-4">
-      <div className="flex-1">
-        <h2 className="text-xl font-bold hover:text-primary">{title}</h2>
-        <p className="mt-3 text-muted-foreground">{description}</p>
-        <div className="mt-3 text-sm text-muted-foreground">
-          {new Intl.DateTimeFormat("en-GB", {
-            dateStyle: "medium",
-          }).format(new Date(date))}
+      <Link
+        to={`/post?postId=${postId}`}
+        className="flex items-center gap-4 p-4"
+      >
+        <div className="flex-1">
+          <h2 className="text-xl font-bold hover:text-primary">{title}</h2>
+          <p className="mt-3 text-muted-foreground">{description}</p>
+          <div className="mt-3 text-sm text-muted-foreground">
+            {new Intl.DateTimeFormat("en-GB", {
+              dateStyle: "medium",
+            }).format(new Date(date))}
+          </div>
         </div>
-      </div>
       </Link>
     </div>
   );

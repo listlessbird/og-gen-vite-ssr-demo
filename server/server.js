@@ -4,12 +4,25 @@ import { getBlogPostOg, getOg } from "./og.jsx";
 import sharp from "sharp";
 import { getAllPosts, getPostById } from "./posts.js";
 
-// Constants
+import dotenv from 'dotenv';
+dotenv.config();
+
+const PORT = process.env.PORT || 5173;
+const HOST = process.env.HOST || 'localhost';
+const PROTOCOL = process.env.PROTOCOL || 'http';
+
+const BASE_URL = process.env.BASE_URL || `${PROTOCOL}://${HOST}:${PORT}`;
+
+
 const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 5173;
 const base = process.env.BASE || "/";
 
-// Cached production assets
+
+
+
+
+
 const templateHtml = isProduction
   ? await fs.readFile("./dist/client/index.html", "utf-8")
   : "";
@@ -17,10 +30,8 @@ const ssrManifest = isProduction
   ? await fs.readFile("./dist/client/.vite/ssr-manifest.json", "utf-8")
   : undefined;
 
-// Create http server
 const app = express();
 
-// Add Vite or respective production middlewares
 let vite;
 if (!isProduction) {
   const { createServer } = await import("vite");
@@ -57,7 +68,6 @@ app.get("/og-image/default.png", async (req, res) => {
   try {
     const imageBuffer = await generateDefaultOgImage();
 
-    console.log("Image buffer size:", imageBuffer.length);
     res.set("Content-Type", "image/png");
     res.send(imageBuffer);
   } catch (error) {
@@ -68,6 +78,7 @@ app.get("/og-image/default.png", async (req, res) => {
 
 app.get("/og-image/post.png", async (req, res) => {
 
+
   const postId = req.query['postId'];
   const post = getPostById(postId)
   const svg = await getBlogPostOg({
@@ -75,7 +86,7 @@ app.get("/og-image/post.png", async (req, res) => {
     author: post.author,
     content: post.content,
     date: new Intl.DateTimeFormat("en-GB", {dateStyle: 'medium'}).format(new Date(post.date)),
-    imageUrl: 'http://localhost:5173/placeholder.jpg'
+    imageUrl: `${req.protocol}://${req.headers.host}/placeholder.jpg`
   });
 
   const img = await sharp(Buffer.from(svg)).png().toBuffer();
@@ -86,11 +97,12 @@ app.get("/og-image/post.png", async (req, res) => {
 
 
 
-// Serve HTML
 app.use("*", async (req, res) => {
 
-  console.log(`at the url ${req.url}`)
   try {
+
+    console.log("originalUrl", req.originalUrl)
+
     const url = req.originalUrl.replace(base, "");
 
     let template;
@@ -108,7 +120,6 @@ app.use("*", async (req, res) => {
 
 
     const parsedUrl = new URL(req.url, `${req.protocol}://${req.headers.host}`);
-    console.log("parsedUrl", parsedUrl)
 
     const isPostRoute = parsedUrl.pathname.startsWith('/post') || (parsedUrl.pathname === '/' && parsedUrl.searchParams.has('postId'));
 
@@ -180,11 +191,11 @@ async function generateDefaultOgImage() {
 }
 
 app.listen(port, async () => {
-  console.log(`Server started at http://localhost:${port}`);
-  try {
-    await generateDefaultOgImage();
-    console.log("OG image generated successfully");
-  } catch (error) {
-    console.error("Error generating OG image:", error);
-  }
+  console.log(`Server started at ${BASE_URL}`);
+  // try {
+  //   await generateDefaultOgImage();
+  //   console.log("OG image generated successfully");
+  // } catch (error) {
+  //   console.error("Error generating OG image:", error);
+  // }
 });
