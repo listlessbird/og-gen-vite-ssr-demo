@@ -66,47 +66,7 @@ app.get("/og-image/default.png", async (req, res) => {
   }
 });
 
-app.get("/og-image/debug.svg", async (req, res) => {
-  const svg = await getOg({
-    title: "Your Default Title",
-    description: "Your default description",
-  });
-  console.log("Generated SVG:", svg.substring(0, 200) + "...");
-  res.set("Content-Type", "image/svg+xml");
-  res.send(svg);
-});
-
-app.get("/og-image/debug-post.svg", async (req, res) => {
-  const svg = await getBlogPostOg({
-    title:
-      "AI Dungeon 2: Creating Infinitely Generated Text Adventures with Deep Learning Language Models",
-    author: "Some Autistic Retard",
-    date: "2021-09-01",
-  });
-  console.log("Generated SVG:", svg.substring(0, 200) + "...");
-  res.set("Content-Type", "image/svg+xml");
-  res.send(svg);
-});
-
-app.get("/og-image/debug-post.png", async (req, res) => {
-  const svg = await getBlogPostOg({
-    title:
-      "AI Dungeon 2: Creating Infinitely Generated Text Adventures with Deep Learning Language Models",
-    author: "Some Autistic Retard",
-    content: "dwqascfwescddddddddddddddddddddwqsdswadqaswfesaqwfcdaqeswfqaeswfdqaeswrdqwrdqawdrqawfd",
-    date: "2021-09-01",
-  });
-
-  const img = await sharp(Buffer.from(svg)).png().toBuffer();
-
-  res.set("Content-Type", "image/png");
-  res.send(img);
-});
-
-
-
 app.get("/og-image/post.png", async (req, res) => {
-
 
   const postId = req.query['postId'];
   const post = getPostById(postId)
@@ -192,11 +152,14 @@ app.use("*", async (req, res) => {
     // const html = template
     //   .replace(`<!--app-head-->`, rendered.head + defaultOgMetaTags)
     //   .replace(`<!--app-html-->`, rendered.html ?? "");
+    // const html = template
+    //   .replace(`<!--app-head-->`, rendered.head ?? "")
+    //   .replace(`</head>`, `${ogMetaTags}</head>`)
+    //   .replace(`<!--app-html-->`, rendered.html ?? "");
     const html = template
-      .replace(`<!--app-head-->`, rendered.head ?? "")
-      .replace(`</head>`, `${ogMetaTags}</head>`)
+      .replace(`<!--app-head-->`, ogMetaTags + (rendered.head ?? ""))
       .replace(`<!--app-html-->`, rendered.html ?? "");
-      
+
     res.status(200).set({ "Content-Type": "text/html" }).send(html);
   } catch (e) {
     vite?.ssrFixStacktrace(e);
@@ -210,17 +173,10 @@ async function generateDefaultOgImage() {
     title: "Listless's Blog",
     description: "Welcome to my Blog",
   });
-  const png = await sharp(Buffer.from(svg))
-    .png()
-    // .resize(960, 700, {
-    //   kernel: sharp.kernel.nearest,
-    //   withoutEnlargement: true,
-    //   withoutReduction: true,
-    //   fit: "cover",
-    //   // position: "left top",
-    // })
-    .toBuffer();
-  return png;
+  
+    const img = await sharp(Buffer.from(svg)).png().toBuffer();
+
+  return img;
 }
 
 app.listen(port, async () => {

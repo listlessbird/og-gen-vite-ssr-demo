@@ -3,19 +3,23 @@ import { PostRoot } from "./components/post-root";
 import React from "react";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import { PostView } from "./components/post";
+import { HelmetProvider } from "react-helmet-async";
+
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="/" index element={<PostRoot />} />
-        </Route>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="/" index element={<PostRoot />} />
+          </Route>
           <Route path="/post" index element={<PostView />} />
           <Route path="*" element={<NoMatch />} />
-      </Routes>
-    </QueryClientProvider>
+        </Routes>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 
@@ -34,14 +38,14 @@ function Home() {
   );
 }
 
-
-
 function NoMatch() {
   return (
     <div className="min-h-screen grid place-content-center">
       <h2 className="text-3xl font-bold">Nothing to see here!</h2>
       <p>
-        <Link to="/" className="text-pretty text-blue-600 font-semibold">Go to the home page</Link>
+        <Link to="/" className="text-pretty text-blue-600 font-semibold">
+          Go to the home page
+        </Link>
       </p>
     </div>
   );
