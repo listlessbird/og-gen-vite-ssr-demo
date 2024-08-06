@@ -19,10 +19,6 @@ const port = process.env.PORT || 5173;
 const base = process.env.BASE || "/";
 
 
-
-
-
-
 const templateHtml = isProduction
   ? await fs.readFile("./dist/client/index.html", "utf-8")
   : "";
@@ -114,7 +110,7 @@ app.use("*", async (req, res) => {
       render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
     } else {
       template = templateHtml;
-      render = (await import("./dist/server/entry-server.js")).render;
+      render = (await import("../dist/server/entry-server.js")).render;
     }
 
 

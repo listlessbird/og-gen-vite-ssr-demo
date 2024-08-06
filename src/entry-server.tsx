@@ -18,6 +18,7 @@ export function render(url: string) {
     </React.StrictMode>
   );
 
+  // @ts-expect-error
   const { helmet } = helmetContext;
 
   return {
