@@ -102,8 +102,31 @@ app.get("/og-image/debug-post.png", async (req, res) => {
   res.send(img);
 });
 
+
+
+app.get("/og-image/post.png", async (req, res) => {
+
+
+  const postId = req.query['postId'];
+  const post = getPostById(postId)
+  const svg = await getBlogPostOg({
+    title: post.title,
+    author: post.author,
+    date: new Intl.DateTimeFormat("en-GB", {dateStyle: 'medium'}).format(new Date(post.date)),
+  });
+
+  const img = await sharp(Buffer.from(svg)).png().toBuffer();
+
+  res.set("Content-Type", "image/png");
+  res.send(img);
+});
+
+
+
 // Serve HTML
 app.use("*", async (req, res) => {
+
+  console.log(`at the url ${req.url}`)
   try {
     const url = req.originalUrl.replace(base, "");
 
@@ -119,9 +142,37 @@ app.use("*", async (req, res) => {
       render = (await import("./dist/server/entry-server.js")).render;
     }
 
-    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
 
-    const defaultOgMetaTags = `
+
+    const parsedUrl = new URL(req.url, `${req.protocol}://${req.headers.host}`);
+    console.log("parsedUrl", parsedUrl)
+
+    const isPostRoute = parsedUrl.pathname.startsWith('/post') || (parsedUrl.pathname === '/' && parsedUrl.searchParams.has('postId'));
+
+    const postId = parsedUrl.searchParams.get('postId');
+
+
+
+    let ogMetaTags;
+    if (isPostRoute && postId) {
+      const post = getPostById(postId);
+      if (post) {
+        ogMetaTags = `
+          <meta property="og:title" content="${post.title}">
+          <meta property="og:description" content="${post.description || 'Read this blog post'}">
+          <meta property="og:image" content="${req.protocol}://${req.get("host")}${base}og-image/post.png?postId=${postId}">
+          <meta property="og:image:width" content="960">
+          <meta property="og:image:height" content="700">
+          <meta property="og:type" content="article">
+          <meta property="og:url" content="${req.protocol}://${req.get("host")}${req.originalUrl}">
+          <meta property="article:published_time" content="${post.date}">
+          <meta property="article:author" content="${post.author}">
+        `;
+      }
+    }
+
+    if (!ogMetaTags) {
+      ogMetaTags = `
         <meta property="og:title" content="Listless's Blog">
         <meta property="og:description" content="Welcome to my Blog">
         <meta property="og:image" content="${req.protocol}://${req.get("host")}${base}og-image/default.png">
@@ -130,6 +181,8 @@ app.use("*", async (req, res) => {
         <meta property="og:type" content="website">
         <meta property="og:url" content="${req.protocol}://${req.get("host")}${req.originalUrl}">
       `;
+    }
+
 
     const rendered = await render(url, ssrManifest);
 
@@ -138,7 +191,7 @@ app.use("*", async (req, res) => {
     //   .replace(`<!--app-html-->`, rendered.html ?? "");
     const html = template
       .replace(`<!--app-head-->`, rendered.head ?? "")
-      .replace(`</head>`, `${defaultOgMetaTags}</head>`)
+      .replace(`</head>`, `${ogMetaTags}</head>`)
       .replace(`<!--app-html-->`, rendered.html ?? "");
       
     res.status(200).set({ "Content-Type": "text/html" }).send(html);
