@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@esbuild-kit/esm-loader':
+        specifier: ^2.6.5
+        version: 2.6.5
       '@tanstack/react-query':
         specifier: ^5.51.21
         version: 5.51.21(react@18.3.1)
@@ -48,9 +51,6 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4
     devDependencies:
-      '@esbuild-kit/esm-loader':
-        specifier: ^2.6.5
-        version: 2.6.5
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.4.7(ts-node@10.9.2(@swc/core@1.7.6)(@types/node@22.1.0)(typescript@5.5.4)))
